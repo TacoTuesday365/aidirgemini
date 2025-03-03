@@ -1,11 +1,12 @@
 const aiMoviesByGeneration = {
   "Silent Generation": [
-    "The Day the Earth Stood Still",
+    "Metropolis",
+    "The Day the Earth Stood Still 1951",
     "Destination Moon"
   ],
   "Boomers": [
     "2001: A Space Odyssey",
-    "Westworld&y=1973",
+    "Westworld 1973",
     "Colossus: The Forbin Project"
   ],
   "Gen X": [
