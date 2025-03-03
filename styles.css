@@ -16,8 +16,44 @@ header {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* Movie Categories */
+#movie-categories h2 {
+    color: #ff00ff; /* Neon Pink Headings */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-button {
+    background: #222;
+    color: #ffccff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(255, 0, 255, 0.3);
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.category-button:hover {
+    background-color: #ff00ff;
+    color: #111;
+    box-shadow: 0px 2px 8px rgba(255, 0, 255, 0.8);
+}
+
 /* Movie Grid */
-.movie-grid {
+#movies-grid h2 {
+    color: #ff00ff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.grid-container {  /* Changed from .movie-grid */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -58,4 +94,13 @@ header {
     color: #ffccff;
     text-align: left;
     padding: 0 5px;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(90deg, #6600ff, #ff00ff);
+    padding: 10px;
+    font-size: 0.8em;
+    color: #111;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
