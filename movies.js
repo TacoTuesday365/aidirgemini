@@ -1,29 +1,59 @@
 const aiMoviesByGeneration = {
   "Boomers": [
     "2001: A Space Odyssey",
-    "Westworld (1973)"
+    "Westworld (1973)",
+    "Colossus: The Forbin Project"
   ],
   "Gen X": [
     "The Terminator",
+    "Terminator 2: Judgment Day",
     "WarGames",
     "RoboCop",
-    "Short Circuit"
+    "RoboCop 2",
+    "RoboCop 3",
+    "Short Circuit",
+    "Short Circuit 2",
+    "Blade Runner",
+    "Tron",
+    "Electric Dreams",
+    "D.A.R.Y.L."
   ],
   "Millennials": [
     "The Matrix",
+    "The Matrix Reloaded",
+    "The Matrix Revolutions",
     "A.I. Artificial Intelligence",
     "I, Robot",
     "Eagle Eye",
-    "Her"
+    "Her",
+    "Bicentennial Man",
+    "Stealth",
+    "Virtuosity",
+    "Ghost in the Shell (1995)",
+    "Minority Report"
   ],
   "Gen Z": [
     "Ex Machina",
     "Upgrade",
     "Uncanny",
-    "Archive"
+    "Archive",
+    "Anon",
+    "Tau",
+    "Replicas",
+    "Morgan",
+    "Chappie",
+    "Automata"
   ],
   "Gen Alpha": [
-    "M3GAN"
+    "M3GAN",
+    "Spies in Disguise"
+  ],
+  "Future": [
+    "The Creator",
+    "After Yang",
+    "Transcendence",
+    "The Mitchells vs. The Machines"
+
   ]
 };
 
