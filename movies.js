@@ -1,8 +1,10 @@
 const aiMoviesByGeneration = {
+  "Lost Generation": [
+    "Metropolis"
+  ],  
   "Silent Generation": [
-    "Metropolis",
     "The Day the Earth Stood Still 1951",
-    "Destination Moon"
+    "Destination Moon 1950"
   ],
   "Boomers": [
     "2001: A Space Odyssey",
