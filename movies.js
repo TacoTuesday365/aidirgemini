@@ -1,4 +1,7 @@
 const aiMoviesByGeneration = {
+  "Silent Generation": [
+    "The Day the Earth Stood Still (1951)"
+  ],
   "Boomers": [
     "2001: A Space Odyssey",
     "Westworld (1973)",
