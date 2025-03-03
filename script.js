@@ -28,7 +28,7 @@ async function displayMovie(movieData) {
     movieCard.classList.add("movie-card");
 
     const img = document.createElement("img");
-    img.src = movieData.Poster !== "N/A" ? movieData.Poster : "placeholder.png"; // Use placeholder if no poster
+    img.src = movieData.Poster !== "N/A" ? movieData.Poster : "placeholder.svg"; // Use placeholder if no poster
     img.alt = movieData.Title;
 
     const title = document.createElement("h3");
