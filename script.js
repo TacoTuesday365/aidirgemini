@@ -4,7 +4,7 @@ const moviesByGenerationContainer = document.getElementById("movies-by-generatio
 async function fetchMovieData(title) {
   const url = `https://www.omdbapi.com/?t=${encodeURIComponent(
     title
-  )}&apikey=${apiKey}`;
+  )}&apikey=${apiKey}&plot=short`; // Request a short plot
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -28,6 +28,13 @@ async function displayMovie(movieData, container) {
   const movieCard = document.createElement("div");
   movieCard.classList.add("movie-card");
 
+  const movieLink = document.createElement("a"); // Create an <a> element
+  movieLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(
+    movieData.Title + " movie trailer"
+  )}`; // Link to YouTube trailer search
+  movieLink.target = "_blank"; // Open in a new tab
+  movieLink.rel = "noopener noreferrer"; // Security best practice
+
   const img = document.createElement("img");
   img.src = movieData.Poster !== "N/A" ? movieData.Poster : "placeholder.png"; // Use placeholder if no poster
   img.alt = movieData.Title;
@@ -38,10 +45,15 @@ async function displayMovie(movieData, container) {
   const year = document.createElement("p");
   year.textContent = movieData.Year;
 
-  movieCard.appendChild(img);
-  movieCard.appendChild(title);
-  movieCard.appendChild(year);
+  const plot = document.createElement("p"); // Add plot element
+  plot.textContent = movieData.Plot;
 
+  movieLink.appendChild(img); // Put image inside the link
+  movieLink.appendChild(title); // Put title inside the link
+  movieLink.appendChild(year); // Put year inside the link
+  movieLink.appendChild(plot); // Put plot inside the link
+
+  movieCard.appendChild(movieLink); // Put link and content in card.
   container.appendChild(movieCard);
 }
 
