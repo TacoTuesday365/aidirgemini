@@ -1,6 +1,7 @@
 const aiMoviesByGeneration = {
   "Silent Generation": [
-    "The Day the Earth Stood Still (1951)"
+    "The Day the Earth Stood Still (1951)",
+    "Destination Moon (1950)"
   ],
   "Boomers": [
     "2001: A Space Odyssey",
@@ -45,18 +46,15 @@ const aiMoviesByGeneration = {
     "Replicas",
     "Morgan",
     "Chappie",
-    "Automata"
-  ],
-  "Gen Alpha": [
-    "M3GAN",
-    "Spies in Disguise"
-  ],
-  "Future": [
+    "Automata",
     "The Creator",
     "After Yang",
     "Transcendence",
     "The Mitchells vs. The Machines"
-
+  ],
+  "Gen Alpha": [
+    "M3GAN",
+    "Spies in Disguise"
   ]
 };
 
