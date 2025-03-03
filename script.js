@@ -1,5 +1,14 @@
 const moviesByGenerationContainer = document.getElementById("movies-by-generation");
 
+const generationRanges = {
+  "Silent Generation": "(1928-1945)",
+  "Boomers": "(1946-1964)",
+  "Gen X": "(1965-1980)",
+  "Millennials": "(1981-1996)",
+  "Gen Z": "(1997-2012)",
+  "Gen Alpha": "(2013-2025)"
+};
+
 // Function to fetch movie data from OMDb API
 async function fetchMovieData(title) {
   const url = `https://www.omdbapi.com/?t=${encodeURIComponent(
@@ -61,7 +70,7 @@ async function displayMovie(movieData, container) {
 async function displayMoviesByGeneration(generation) {
   const generationSection = document.createElement("section");
   const generationHeading = document.createElement("h2");
-  generationHeading.textContent = generation;
+  generationHeading.textContent = `${generation} ${generationRanges[generation] || ""}`; // Add date range
   generationSection.appendChild(generationHeading);
 
   const movieGrid = document.createElement("div");
@@ -71,10 +80,20 @@ async function displayMoviesByGeneration(generation) {
   const movieTitles = aiMoviesByGeneration[generation];
 
   if (movieTitles) {
-    for (const title of movieTitles) {
-      const movieData = await fetchMovieData(title);
-      await displayMovie(movieData, movieGrid);
-    }
+      // Fetch movie data for all titles in the generation
+      const movieDataPromises = movieTitles.map(title => fetchMovieData(title));
+      const movieData = await Promise.all(movieDataPromises);
+
+      // Filter out any null movieData entries (movies not found)
+      const validMovieData = movieData.filter(data => data !== null);
+
+      // Sort movies by year in descending order (newest to oldest)
+      validMovieData.sort((a, b) => parseInt(b.Year) - parseInt(a.Year));
+
+      // Display the sorted movies
+      for (const movie of validMovieData) {
+          await displayMovie(movie, movieGrid);
+      }
   } else {
     console.warn(`Generation not found: ${generation}`);
     movieGrid.textContent = "No movies found for this generation.";
