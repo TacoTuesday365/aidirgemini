@@ -10,11 +10,12 @@ body {
 
 a {
     color: #ff00ff; /* Neon pink link color */
-    text-decoration: none;
+    text-decoration: none; /* No underline */
+    display: block; /* Make the <a> element fill the card */
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Underline on hover */
 }
 
 /* Header */
