@@ -5,7 +5,7 @@ const aiMoviesByGeneration = {
   ],
   "Boomers": [
     "2001: A Space Odyssey",
-    "Westworld (1973)",
+    "Westworld",
     "Colossus: The Forbin Project"
   ],
   "Gen X": [
