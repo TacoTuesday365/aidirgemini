@@ -27,4 +27,4 @@ const aiMoviesByGeneration = {
   ]
 };
 
-const apiKey = "YOUR_OMDB_API_KEY"; // Replace with your actual OMDB API key!
+const apiKey = "16746966"; // Replace with your actual OMDB API key!
