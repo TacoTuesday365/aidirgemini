@@ -31,12 +31,12 @@ header h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Movie Categories */
-#movie-categories {
+/* Movies by Generation */
+#movies-by-generation {
     padding: 20px;
 }
 
-#movie-categories h2 {
+#movies-by-generation h2 {
     font-size: 1.5em;
     color: #ff00ff; /* Neon pink */
     margin-bottom: 10px;
@@ -44,36 +44,7 @@ header h1 {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.categories-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.category-button {
-    background-color: #212121; /* Dark button background */
-    color: #ffccff; /* Light purple text */
-    border: 1px solid #ff00ff; /* Neon pink border */
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.category-button:hover {
-    background-color: #ff00ff; /* Neon pink hover */
-    color: #212121;
-}
-
-/* Movie Grid */
-#movies-grid {
-    padding: 20px;
-}
-
-.grid-container {
+.movie-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
