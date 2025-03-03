@@ -1,5 +1,4 @@
-const moviesContainer = document.getElementById("movies-container");
-const categoriesContainer = document.getElementById("categories-container");
+const moviesByGenerationContainer = document.getElementById("movies-by-generation");
 
 // Function to fetch movie data from OMDb API
 async function fetchMovieData(title) {
@@ -23,7 +22,7 @@ async function fetchMovieData(title) {
 }
 
 // Function to display movie data in the grid
-async function displayMovie(movieData) {
+async function displayMovie(movieData, container) {
   if (!movieData) return; // Don't display if data is null
 
   const movieCard = document.createElement("div");
@@ -43,45 +42,40 @@ async function displayMovie(movieData) {
   movieCard.appendChild(title);
   movieCard.appendChild(year);
 
-  moviesContainer.appendChild(movieCard);
+  container.appendChild(movieCard);
 }
 
 // Function to display movies by generation
 async function displayMoviesByGeneration(generation) {
-  moviesContainer.innerHTML = ""; // Clear existing movies
+  const generationSection = document.createElement("section");
+  const generationHeading = document.createElement("h2");
+  generationHeading.textContent = generation;
+  generationSection.appendChild(generationHeading);
+
+  const movieGrid = document.createElement("div");
+  movieGrid.classList.add("movie-grid");
+  generationSection.appendChild(movieGrid);
 
   const movieTitles = aiMoviesByGeneration[generation];
 
   if (movieTitles) {
     for (const title of movieTitles) {
       const movieData = await fetchMovieData(title);
-      await displayMovie(movieData);
+      await displayMovie(movieData, movieGrid);
     }
   } else {
     console.warn(`Generation not found: ${generation}`);
-    moviesContainer.textContent = "No movies found for this generation.";
+    movieGrid.textContent = "No movies found for this generation.";
   }
-}
 
-// Function to create category buttons
-function createCategoryButtons() {
-  for (const generation in aiMoviesByGeneration) {
-    const button = document.createElement("button");
-    button.classList.add("category-button");
-    button.textContent = generation;
-    button.addEventListener("click", () =>
-      displayMoviesByGeneration(generation)
-    );
-    categoriesContainer.appendChild(button);
-  }
+  moviesByGenerationContainer.appendChild(generationSection);
 }
 
 // Initialize the app
-function init() {
-  createCategoryButtons();
-  // Optionally, display movies from the first generation by default:
-  const firstGeneration = Object.keys(aiMoviesByGeneration)[0];
-  displayMoviesByGeneration(firstGeneration);
+async function init() {
+  for (const generation in aiMoviesByGeneration) {
+    await displayMoviesByGeneration(generation);
+  }
 }
 
 // Call init when the DOM is fully loaded
