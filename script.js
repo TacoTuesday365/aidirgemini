@@ -1,7 +1,5 @@
 const moviesContainer = document.getElementById("movies-container");
 const categoriesContainer = document.getElementById("categories-container");
-const searchInput = document.getElementById("search-input");
-const searchButton = document.getElementById("search-button");
 
 // Function to fetch movie data from OMDb API
 async function fetchMovieData(title) {
@@ -36,12 +34,7 @@ async function displayMovie(movieData) {
   img.alt = movieData.Title;
 
   const title = document.createElement("h3");
-  const titleLink = document.createElement("a");
-  titleLink.href = `https://www.google.com/search?q=${encodeURIComponent(
-    movieData.Title + " movie"
-  )}`; // Create the title with a Google search link
-  titleLink.textContent = movieData.Title;
-  title.appendChild(titleLink);
+  title.textContent = movieData.Title;
 
   const year = document.createElement("p");
   year.textContent = movieData.Year;
@@ -83,31 +76,12 @@ function createCategoryButtons() {
   }
 }
 
-async function searchMovies(searchTerm) {
-  moviesContainer.innerHTML = ""; // Clear existing movies
-  const movieData = await fetchMovieData(searchTerm);
-  await displayMovie(movieData);
-}
-
 // Initialize the app
 function init() {
   createCategoryButtons();
   // Optionally, display movies from the first generation by default:
   const firstGeneration = Object.keys(aiMoviesByGeneration)[0];
   displayMoviesByGeneration(firstGeneration);
-
-  searchButton.addEventListener("click", () => {
-    const searchTerm = searchInput.value;
-    searchMovies(searchTerm);
-  });
-
-  searchInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission
-      const searchTerm = searchInput.value;
-      searchMovies(searchTerm);
-    }
-  });
 }
 
 // Call init when the DOM is fully loaded
