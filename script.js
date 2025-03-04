@@ -1,5 +1,6 @@
 const timelineContainer = document.getElementById("timeline");
 const allMovies = []; // Array to hold all movies
+const apiKey = "16746966"; // Replace with your actual OMDB API key!
 
 // Function to fetch movie data from OMDb API
 async function fetchMovieData(title) {
