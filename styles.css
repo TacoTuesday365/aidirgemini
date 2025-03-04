@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    background: #121212; /* Dark background */
+    background: #121212;
     color: #fff;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,18 +9,18 @@ body {
 }
 
 a {
-    color: #ff00ff; /* Neon pink link color */
-    text-decoration: none; /* No underline */
-    display: block; /* Make the <a> element fill the card */
+    color: #ff00ff;
+    text-decoration: none;
+    display: block;
 }
 
 a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline;
 }
 
 /* Header */
 header {
-  background: linear-gradient(90deg, #6600ff, #ff00ff); /* Gradient background */
+  background: linear-gradient(90deg, #6600ff, #ff00ff);
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -32,41 +32,47 @@ header h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Movies by Generation */
-#movies-by-generation {
-    padding: 20px;
+/* Timeline */
+#timeline {
+    position: relative; /* Needed for absolute positioning of elements */
+    padding: 30px;
 }
 
-#movies-by-generation h2 {
-    font-size: 1.5em;
-    color: #ff00ff; /* Neon pink */
-    margin-bottom: 10px;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+#timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;  /* Center the line */
+    width: 2px; /* Timeline line thickness */
+    background-color: #ff00ff; /* Neon pink */
+    margin-left: -1px; /* Center perfectly */
 }
 
-.movie-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px 0;
-}
-
-/* Movie Cards */
+/* Movie Card */
 .movie-card {
-    width: 150px; /* Slightly larger posters */
-    text-align: left;
-    background-color: #1e1e1e; /* Dark card background */
+    position: relative;
+    width: 45%; /* Adjust as needed, 45% leaves a little room */
+    background-color: #1e1e1e;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s;
-    border: 2px solid #ff00ff; /* Neon pink border around the card */
+    margin-bottom: 30px; /* Spacing between movies */
+    padding: 10px;
+    z-index: 1; /* Ensure movies appear above the timeline line */
 }
 
-.movie-card:hover {
-    transform: scale(1.05);
+/* Alternate movie card position */
+.movie-card:nth-child(odd) { /* Odd numbered cards to the left */
+    left: 0;
+    margin-right: 5%; /* Create space on the right for the line */
+    margin-left: 5%;
+}
+
+.movie-card:nth-child(even) { /* Even numbered cards to the right */
+    right: 0;
+    left: 50%; /* Position to the right of the line */
+    margin-left: 5%; /* Space to the left for the line */
 }
 
 .movie-card img {
@@ -78,18 +84,31 @@ header h1 {
 .movie-card h3 {
     font-size: 1.1em;
     margin: 10px;
-    color: #ffccff; /* Light purple title */
+    color: #ffccff;
 }
 
 .movie-card p {
-    font-size: 0.8em; /* Reduced font size for plot */
-    color: #9e9e9e; /* Gray description */
+    font-size: 0.8em;
+    color: #9e9e9e;
     margin: 0 10px 10px;
+}
+
+/* Year indicator on timeline */
+.year-indicator {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6600ff; /* Dark background */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    z-index: 2; /* Ensure it's above the timeline line and movie cards */
 }
 
 /* Footer */
 footer {
-    background: #212121; /* Dark footer */
+    background: #212121;
     padding: 15px;
     text-align: center;
     font-size: 0.8em;
