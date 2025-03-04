@@ -3,25 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Movie Directory</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>AI Movie Timeline</title>
+    <style>
+        /* === General Styles === */
+        body {
+            font-family: sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff4081; /* Neon pink */
+            margin-top: 20px;
+            text-shadow: 0 0 10px #ff4081;
+        }
+
+        /* === Movie Grid Styles === */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px; /* Limit width */
+            margin: 0 auto;
+        }
+
+        .movie-tile {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .movie-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+        }
+
+        .movie-tile img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .movie-tile h2 {
+            font-size: 1.2rem;
+            margin: 10px;
+            text-align: center;
+            color: #eee;
+        }
+
+        /* === Timeline Styles === */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #ff4081; /* Neon pink timeline */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 10px #ff4081;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container.left {
+            left: 0;
+        }
+
+        .timeline-container.right {
+            left: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: #222;
+            border: 4px solid #ff4081; /* Neon pink circle */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 5px #ff4081;
+        }
+
+        .timeline-container.left::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            background-color: #2a2a2a;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .timeline-content p {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #ccc;
+        }
+
+        .timeline-content::before {
+            content: " ";
+            position: absolute;
+            top: 10px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .timeline-container.left .timeline-content::before {
+            right: -15px;
+            border-width: 8px 0 8px 15px;
+            border-color: transparent transparent transparent #2a2a2a;
+        }
+
+        .timeline-container.right .timeline-content::before {
+            left: -15px;
+            border-width: 8px 15px 8px 0;
+            border-color: transparent #2a2a2a transparent transparent;
+        }
+
+        /* === Responsive Styles === */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-container.left,
+            .timeline-container.right {
+                left: 0%;
+            }
+
+            .timeline-container.left::after,
+            .timeline-container.right::after {
+                left: 20px;
+            }
+
+            .timeline-container.left .timeline-content::before,
+            .timeline-container.right .timeline-content::before {
+                left: 0;
+                border-width: 8px 15px 8px 0;
+                border-color: transparent #2a2a2a transparent transparent;
+            }
+        }
+
+        /* === Footer Styles === */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>AI Movie Directory</h1>
-    </header>
+    <h1>AI Movie Directory</h1>
 
-    <main>
-        <section id="timeline">
-            <!-- Movie timeline will be generated here -->
-        </section>
-    </main>
+    <div class="movie-grid" id="movieGrid">
+        <!-- Movie tiles will be dynamically added here -->
+    </div>
+
+    <div class="timeline">
+        <!-- Timeline content will be dynamically added here -->
+    </div>
 
     <footer>
-        <p>© [Your Name] 2024</p>
+        <p>© 2023 AI Movie Database</p>
     </footer>
 
-    <script src="movies.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Sample movie data (can be replaced with API call)
+        const movies = [
+            {
+                title: "The Matrix",
+                year: 1999,
+                image: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+                description: "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+            },
+            {
+                title: "Blade Runner",
+                year: 1982,
+                image: "https://m.media-amazon.com/images/M/MV5BNzQzMzJhZTEtOWM4NS00MTdhLTg0YjgtMjM4MDRkZjUwZDBlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+                description: "A blade runner must pursue and terminate four replicants who stole a ship in space and have returned to Earth to find their creator.",
+            },
+            {
+                title: "Ex Machina",
+                year: 2014,
+                image: "https://m.media-amazon.com/images/M/MV5BMTUxNzc0OTIxMV5BMl5BanBnXkFtZTgwNDI3NzU2NDE@._V1_SX300.jpg",
+                description: "A young programmer is selected to participate in a groundbreaking experiment in synthetic intelligence by evaluating the human qualities of a highly advanced humanoid A.I.",
+            },
+            {
+                title: "A.I. Artificial Intelligence",
+                year: 2001,
+                image: "https://m.media-amazon.com/images/M/MV5BNjQ1ODk4NDk2NV5BMl5BanBnXkFtZTcwMDk2NDQ3MQ@@._V1_SX300.jpg",
+                description: "A highly advanced robotic boy longs to become 'real' so that he can regain the love of his human mother.",
+            },
+            {
+                title: "Her",
+                year: 2013,
+                image: "https://m.media-amazon.com/images/M/MV5BMzE4ODYwNjY5Ml5BMl5BanBnXkFtZTgwMDM5MzQzMTE@._V1_SX300.jpg",
+                description: "In a near future, a lonely writer develops an unlikely relationship with an operating system designed to meet his every need.",
+            },
+            {
+                title: "Tron: Legacy",
+                year: 2010,
+                image: "https://m.media-amazon.com/images/M/MV5BMjE5NDk5NzE4NV5BMl5BanBnXkFtZTcwMjU4NDY2NQ@@._V1_SX300.jpg",
+                description: "The son of a virtual world designer goes looking for his father and ends up inside the digital world that his father designed. He meets his father's corrupted creation and a unique ally who was born inside the digital world.",
+            }
+        ];
+
+        function createMovieTiles(movies) {
+            const movieGrid = document.getElementById("movieGrid");
+
+            movies.forEach(movie => {
+                const movieTile = document.createElement("div");
+                movieTile.classList.add("movie-tile");
+
+                movieTile.innerHTML = `
+                    <img src="${movie.image}" alt="${movie.title}">
+                    <h2>${movie.title}</h2>
+                `;
+                movieGrid.appendChild(movieTile);
+            });
+        }
+
+        function createTimeline(movies) {
+            const timeline = document.querySelector(".timeline");
+
+            movies.forEach((movie, index) => {
+                const container = document.createElement("div");
+                container.classList.add("timeline-container");
+                container.classList.add(index % 2 === 0 ? "left" : "right"); // Alternate left/right
+
+                const content = document.createElement("div");
+                content.classList.add("timeline-content");
+
+                content.innerHTML = `
+                    <h3>${movie.title} (${movie.year})</h3>
+                    <p>${movie.description}</p>
+                `;
+
+                container.appendChild(content);
+                timeline.appendChild(container);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener("DOMContentLoaded", () => {
+            createMovieTiles(movies);
+            createTimeline(movies);
+        });
+    </script>
 </body>
 </html>
